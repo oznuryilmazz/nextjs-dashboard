@@ -4,6 +4,7 @@ const {
   customers,
   revenue,
   users,
+  support,
 } = require('../app/lib/placeholder-data.js');
 const bcrypt = require('bcrypt');
 
@@ -160,6 +161,45 @@ async function seedRevenue(client) {
   }
 }
 
+async function seedSupport(client) {
+  try {
+    // Create the "support" table if it doesn't exist
+    const createTable = await client.sql` 
+    CREATE TABLE IF NOT EXISTS support (
+      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+      customer_id UUID NOT NULL,
+      title VARCHAR(255) NOT NULL,
+      description VARCHAR(255) NOT NULL,
+      status VARCHAR(255) NOT NULL,
+      date DATE NOT NULL
+      );
+    `;
+
+    console.log(`Created "support" table`);
+
+    // Insert data into the "support" table
+    const insertedSupport = await Promise.all(
+      support.map(
+        (sup) => client.sql`
+        INSERT INTO support (customer_id,title,description,status,date)
+        VALUES (${sup.customer_id}, ${sup.title}, ${sup.description}, ${sup.status}, ${sup.date})
+        ON CONFLICT (id) DO NOTHING;
+      `,
+      ),
+    );
+
+    console.log(`Seeded ${insertedSupport.length} support`);
+
+    return {
+      createTable,
+      support: insertedSupport,
+    };
+  } catch (error) {
+    console.error('Error seeding support:', error);
+    throw error;
+  }
+}
+
 async function main() {
   const client = await db.connect();
 
@@ -167,10 +207,10 @@ async function main() {
   await seedCustomers(client);
   await seedInvoices(client);
   await seedRevenue(client);
+  await seedSupport(client);
 
   await client.end();
 }
-
 main().catch((err) => {
   console.error(
     'An error occurred while attempting to seed the database:',
