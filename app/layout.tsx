@@ -1,14 +1,11 @@
+import '@mantine/core/styles.css';
 import '@/app/ui/global.css';
-import { lusitana } from '@/app/ui/fonts';
-import { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: {
-    template: '%s | Acme Dashboard',
-    default: 'Acme Dashboard',
-  },
-  description: 'The official Next.js Learn Dashboard built with App Router.',
-  metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
+import { ColorSchemeScript, MantineProvider } from '@mantine/core';
+
+export const metadata = {
+  title: 'My Mantine app',
+  description: 'I have followed setup instructions carefully',
 };
 
 export default function RootLayout({
@@ -18,7 +15,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${lusitana.className} antialiased`}>{children}</body>
+      <head>
+        <ColorSchemeScript />
+      </head>
+      <body>
+        <MantineProvider>{children}</MantineProvider>
+      </body>
     </html>
   );
 }
