@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "types": [
+      "@types/d3-array"
+    ],
     "forceConsistentCasingInFileNames": true,
     "target": "es5",
     "lib": [
