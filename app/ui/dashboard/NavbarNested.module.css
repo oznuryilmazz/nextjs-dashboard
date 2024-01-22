@@ -4,7 +4,7 @@
     var(--mantine-color-dark-6)
   );
   height: rem(800px);
-  width: rem(300px);
+  width: rem(400px);
   padding: var(--mantine-spacing-md);
   padding-bottom: 0;
   display: flex;
@@ -54,7 +54,7 @@
       var(--mantine-color-dark-8)
     );
   }
-} 
+}
 /*User Button*/
 
 /*Navbar Links Group*/

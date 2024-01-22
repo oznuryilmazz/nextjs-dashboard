@@ -1,65 +1,60 @@
-import {
-  BanknotesIcon,
-  ClockIcon,
-  UserGroupIcon,
-  InboxIcon,
-} from '@heroicons/react/24/outline';
-import { lusitana } from '@/app/ui/fonts';
-import { fetchCardData } from '@/app/lib/data';
+import { Group, Paper, Text, ThemeIcon, SimpleGrid } from '@mantine/core';
+import { IconArrowUpRight, IconArrowDownRight } from '@tabler/icons-react';
+import classes from './StatsGridIcons.module.css';
 
-const iconMap = {
-  collected: BanknotesIcon,
-  customers: UserGroupIcon,
-  pending: ClockIcon,
-  invoices: InboxIcon,
-};
+const data = [
+  { title: 'Revenue', value: '$13,456', diff: 34 },
+  { title: 'Profit', value: '$4,145', diff: -13 },
+  { title: 'Coupons usage', value: '745', diff: 18 },
+];
 
-export default async function CardWrapper() {
-  const {
-    numberOfInvoices,
-    numberOfCustomers,
-    totalPaidInvoices,
-    totalPendingInvoices,
-  } = await fetchCardData();
+export default function CardWrapper() {
+  const stats = data.map((stat) => {
+    const DiffIcon = stat.diff > 0 ? IconArrowUpRight : IconArrowDownRight;
+
+    return (
+      <Paper withBorder p="md" radius="md" key={stat.title}>
+        <Group justify="space-between">
+          <div>
+            <Text
+              c="dimmed"
+              tt="uppercase"
+              fw={700}
+              fz="xs"
+              className={classes.label}
+            >
+              {stat.title}
+            </Text>
+            <Text fw={700} fz="xl">
+              {stat.value}
+            </Text>
+          </div>
+          <ThemeIcon
+            color="gray"
+            variant="light"
+            style={{
+              color:
+                stat.diff > 0
+                  ? 'var(--mantine-color-teal-6)'
+                  : 'var(--mantine-color-red-6)',
+            }}
+            size={38}
+            radius="md"
+          >
+            <DiffIcon size="1.8rem" stroke={1.5} />
+          </ThemeIcon>
+        </Group>
+        <Text c="dimmed" fz="sm" mt="md">
+          <Text component="span" c={stat.diff > 0 ? 'teal' : 'red'} fw={700}>
+            {stat.diff}%
+          </Text>{' '}
+          {stat.diff > 0 ? 'increase' : 'decrease'} compared to last month
+        </Text>
+      </Paper>
+    );
+  });
+
   return (
-    <>
-      {/* NOTE: comment in this code when you get to this point in the course */}
-
-      <Card title="Collected" value={totalPaidInvoices} type="collected" />
-      <Card title="Pending" value={totalPendingInvoices} type="pending" />
-      <Card title="Total Invoices" value={numberOfInvoices} type="invoices" />
-      <Card
-        title="Total Customers"
-        value={numberOfCustomers}
-        type="customers"
-      />
-    </>
-  );
-}
-
-export function Card({
-  title,
-  value,
-  type,
-}: {
-  title: string;
-  value: number | string;
-  type: 'invoices' | 'customers' | 'pending' | 'collected';
-}) {
-  const Icon = iconMap[type];
-
-  return (
-    <div className="rounded-xl bg-gray-50 p-2 shadow-sm">
-      <div className="flex p-4">
-        {Icon ? <Icon className="h-5 w-5 text-gray-700" /> : null}
-        <h3 className="ml-2 text-sm font-medium">{title}</h3>
-      </div>
-      <p
-        className={`${lusitana.className}
-          truncate rounded-xl bg-white px-4 py-8 text-center text-2xl`}
-      >
-        {value}
-      </p>
-    </div>
+      <SimpleGrid cols={{ base: 1, sm: 3 }}>{stats}</SimpleGrid>
   );
 }

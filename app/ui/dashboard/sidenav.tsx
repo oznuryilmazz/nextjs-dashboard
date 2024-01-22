@@ -10,33 +10,39 @@ import {
   IconLock,
 } from '@tabler/icons-react';
 import LinksGroup from './NavbarLinksGroup';
-import AcmeLogo from '../acme-logo';
 import UserButton from './UserButton';
 import classes from './NavbarNested.module.css';
+import Logo from '../logo';
 
 const mockdata = [
-  { label: 'Dashboard', icon: IconGauge },
+  { label: 'Dashboard', icon: IconGauge, link: '../dashboard' },
   {
-    label: 'Market news',
+    label: 'Customers',
     icon: IconNotes,
     initiallyOpened: true,
+    link: '../dashboard/customers',
     links: [
-      { label: 'Overview', link: '/' },
+      { label: 'Overview', link: '../dashboard/customers' },
       { label: 'Forecasts', link: '/' },
       { label: 'Outlook', link: '/' },
       { label: 'Real time', link: '/' },
     ],
   },
   {
-    label: 'Releases',
+    label: 'Invoices',
     icon: IconCalendarStats,
+    link: '../dashboard/invoices',
     links: [
-      { label: 'Upcoming releases', link: '/' },
+      { label: 'Overview', link: '../dashboard/invoices' },
       { label: 'Previous releases', link: '/' },
       { label: 'Releases schedule', link: '/' },
     ],
   },
-  { label: 'Analytics', icon: IconPresentationAnalytics },
+  {
+    label: 'Support',
+    icon: IconPresentationAnalytics,
+    link: '../dashboard/support',
+  },
   { label: 'Contracts', icon: IconFileAnalytics },
   { label: 'Settings', icon: IconAdjustments },
   {
@@ -59,7 +65,7 @@ export default function SideNav() {
     <nav className={classes.navbar}>
       <div className={classes.header}>
         <Group justify="space-between">
-          <AcmeLogo style={{ width: rem(120) }} />
+          <Logo />
           <Code fw={700}>v3.1.2</Code>
         </Group>
       </div>

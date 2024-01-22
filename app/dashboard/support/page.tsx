@@ -9,8 +9,10 @@ import {
   Avatar,
   Text,
   rem,
+  Card,
 } from '@mantine/core';
 import classes from './TableSelection.module.css';
+import { lusitana } from '@/app/ui/fonts';
 
 const data = [
   {
@@ -71,9 +73,7 @@ export default function Page() {
   const rows = data.map((item) => {
     const selected = selection.includes(item.id);
     return (
-      <Table.Tr
-        key={item.id}
-      >
+      <Table.Tr key={item.id}>
         <Table.Td>
           <Checkbox
             checked={selection.includes(item.id)}
@@ -96,25 +96,30 @@ export default function Page() {
 
   return (
     <ScrollArea>
-      <Table miw={800} verticalSpacing="sm">
-        <Table.Thead>
-          <Table.Tr>
-            <Table.Th style={{ width: rem(40) }}>
-              <Checkbox
-                onChange={toggleAll}
-                checked={selection.length === data.length}
-                indeterminate={
-                  selection.length > 0 && selection.length !== data.length
-                }
-              />
-            </Table.Th>
-            <Table.Th>User</Table.Th>
-            <Table.Th>Email</Table.Th>
-            <Table.Th>Job</Table.Th>
-          </Table.Tr>
-        </Table.Thead>
-        <Table.Tbody>{rows}</Table.Tbody>
-      </Table>
+      <div className="flex w-full items-center justify-between">
+        <h1 className={`${lusitana.className} text-2xl`}>Support</h1>
+      </div>
+      <Card key="sds" shadow="sm" padding="lg" radius="md" withBorder mt={20}>
+        <Table miw={800} verticalSpacing="md">
+          <Table.Thead>
+            <Table.Tr>
+              <Table.Th style={{ width: rem(40) }}>
+                <Checkbox
+                  onChange={toggleAll}
+                  checked={selection.length === data.length}
+                  indeterminate={
+                    selection.length > 0 && selection.length !== data.length
+                  }
+                />
+              </Table.Th>
+              <Table.Th>User</Table.Th>
+              <Table.Th>Email</Table.Th>
+              <Table.Th>Job</Table.Th>
+            </Table.Tr>
+          </Table.Thead>
+          <Table.Tbody>{rows}</Table.Tbody>
+        </Table>
+      </Card>
     </ScrollArea>
   );
 }
