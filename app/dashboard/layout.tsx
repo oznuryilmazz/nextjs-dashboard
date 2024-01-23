@@ -4,7 +4,7 @@ import { Container, Grid } from '@mantine/core';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <Container fluid>
+    <Container fluid style={{ paddingLeft: 0 }}>
       <Grid>
         <Grid.Col span={2}>
           <SideNav />

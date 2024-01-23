@@ -80,6 +80,18 @@ export type CustomerField = {
   name: string;
 };
 
+export type SupportField = {
+  id: string;
+  customer_id: string;
+  name: string;
+  email: string;
+  image_url: string;
+  title: string;
+  description: string;
+  status: string;
+  date: string;
+};
+
 export type InvoiceForm = {
   id: string;
   customer_id: string;

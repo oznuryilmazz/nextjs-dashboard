@@ -1,5 +1,6 @@
 import { BarChart } from '@mantine/charts';
 import '@mantine/charts/styles.css';
+import { Paper } from '@mantine/core';
 
 export const data = [
   { month: 'January', Smartphones: 120, Laptops: 80, Tablets: 10 },
