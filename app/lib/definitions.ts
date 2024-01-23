@@ -80,7 +80,7 @@ export type CustomerField = {
   name: string;
 };
 
-export type SupportField = {
+export type SupportTable = {
   id: string;
   customer_id: string;
   name: string;

@@ -7,7 +7,7 @@ import {
   LatestInvoiceRaw,
   User,
   Revenue,
-  SupportField,
+  SupportTable,
 } from './definitions';
 import { formatCurrency } from './utils';
 import { unstable_noStore as noStore } from 'next/cache';
@@ -152,7 +152,7 @@ export async function fetchInvoicesPages(query: string) {
 
 export async function fetchSupports() {
   try {
-    const data = await sql`
+    const data = await sql<SupportTable>`
       SELECT
         support.id,
         name,

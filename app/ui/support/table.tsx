@@ -1,3 +1,4 @@
+'use client';
 import {
   Table,
   Checkbox,
@@ -11,32 +12,9 @@ import {
 import { lusitana } from '@/app/ui/fonts';
 import { fetchSupports } from '@/app/lib/data';
 
-export default async function SupportTable() {
+export async function SupportTable() {
   const data = await fetchSupports();
 
-  const rows = data.map((item) => {
-    return (
-      <Table.Tr key={item.id}>
-        <Table.Td>
-          <Checkbox />
-        </Table.Td>
-        <Table.Td>
-          <Group gap="sm">
-            <Avatar size={26} src={item.image_url} radius={26} />
-            <Text size="sm" fw={500}>
-              {item.name}
-            </Text>
-            <Text size="xs" fw={400}>
-              {item.email}
-            </Text>
-          </Group>
-        </Table.Td>
-        <Table.Td>{item.title}</Table.Td>
-        <Table.Td>{item.description}</Table.Td>
-        <Table.Td>{item.status}</Table.Td>
-      </Table.Tr>
-    );
-  });
   return (
     <ScrollArea>
       <div className="flex w-full items-center justify-between">
@@ -55,7 +33,29 @@ export default async function SupportTable() {
               <Table.Th>Status</Table.Th>
             </Table.Tr>
           </Table.Thead>
-          <Table.Tbody>{rows}</Table.Tbody>
+          <Table.Tbody>
+            {data?.map((item) => (
+              <Table.Tr key={item.id}>
+                <Table.Td>
+                  <Checkbox />
+                </Table.Td>
+                <Table.Td>
+                  <Group gap="sm">
+                    <Avatar size={26} src={item.image_url} radius={26} />
+                    <Text size="sm" fw={500}>
+                      {item.name}
+                    </Text>
+                    <Text size="xs" fw={400}>
+                      {item.email}
+                    </Text>
+                  </Group>
+                </Table.Td>
+                <Table.Td>{item.title}</Table.Td>
+                <Table.Td>{item.description}</Table.Td>
+                <Table.Td>{item.status}</Table.Td>
+              </Table.Tr>
+            ))}
+          </Table.Tbody>
         </Table>
       </Card>
     </ScrollArea>

@@ -1,8 +1,7 @@
-'use client';
-import SupportTable from '@/app/ui/support/table';
+import { SupportTable } from '@/app/ui/support/table';
 import { Container } from '@mantine/core';
 
-export default function Page() {
+export default async function Page() {
   return (
     <Container fluid>
       <SupportTable />
