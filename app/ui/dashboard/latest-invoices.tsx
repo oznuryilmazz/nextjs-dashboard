@@ -2,26 +2,21 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import { lusitana } from '@/app/ui/fonts';
 import { fetchLatestInvoices } from '@/app/lib/data';
-import { Paper } from '@mantine/core';
+import { Group, Paper, Stack } from '@mantine/core';
 
 export default async function LatestInvoices() {
   // Make component async, remove the props
   const latestInvoices = await fetchLatestInvoices(); // Fetch data inside the component
   return (
-    <Paper shadow="xs" p="xl">
+    <Stack style={{ width: '90%' }}>
       {latestInvoices.map((invoice, i) => {
         return (
-          <div
-            key={invoice.id}
-            className={clsx('flex flex-row items-center justify-between py-4', {
-              'border-t': i !== 0,
-            })}
-          >
-            <div className="flex items-center">
+          <Group key={invoice.id} align="flex-start" justify="space-between">
+            <Group>
               <Image
                 src={invoice.image_url}
                 alt={`${invoice.name}'s profile picture`}
-                className="mr-4 rounded-full"
+                className="mr-1 rounded-full"
                 width={32}
                 height={32}
               />
@@ -33,15 +28,15 @@ export default async function LatestInvoices() {
                   {invoice.email}
                 </p>
               </div>
-            </div>
+            </Group>
             <p
               className={`${lusitana.className} truncate text-sm font-medium md:text-base`}
             >
               {invoice.amount}
             </p>
-          </div>
+          </Group>
         );
       })}
-    </Paper>
+    </Stack>
   );
 }

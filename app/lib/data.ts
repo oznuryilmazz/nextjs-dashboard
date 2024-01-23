@@ -7,6 +7,7 @@ import {
   LatestInvoiceRaw,
   User,
   Revenue,
+  SupportField,
 } from './definitions';
 import { formatCurrency } from './utils';
 import { unstable_noStore as noStore } from 'next/cache';
@@ -146,6 +147,28 @@ export async function fetchInvoicesPages(query: string) {
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch total number of invoices.');
+  }
+}
+
+export async function fetchSupports() {
+  try {
+    const data = await sql`
+      SELECT
+        support.id,
+        name,
+        email,
+        image_url,
+        title,
+        description,
+        status
+        FROM support
+        JOIN customers ON support.customer_id = customers.id`;
+
+    const support = data.rows;
+    return support;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all support.');
   }
 }
 

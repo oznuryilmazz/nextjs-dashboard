@@ -10,7 +10,6 @@ import {
 } from '@mantine/core';
 import { IconCalendarStats, IconChevronRight } from '@tabler/icons-react';
 import classes from './NavbarNested.module.css';
-import Link from 'next/link';
 
 interface LinksGroupProps {
   icon: React.FC<any>;
@@ -28,9 +27,15 @@ export default function LinksGroup({
   const hasLinks = Array.isArray(links);
   const [opened, setOpened] = useState(initiallyOpened || false);
   const items = (hasLinks ? links : []).map((link) => (
-    <Link className={classes.link} href={link.link} key={link.label}>
+    <Text<'a'>
+      component="a"
+      className={classes.link}
+      href={link.link}
+      key={link.label}
+      onClick={(event) => event.preventDefault()}
+    >
       {link.label}
-    </Link>
+    </Text>
   ));
 
   return (
